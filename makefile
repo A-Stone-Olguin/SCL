@@ -9,6 +9,8 @@ CFILE1 = eltest.c
 CFILE2 = scl.c
 CFILE3 = main.c
 
+# SOURCES := $(wildcard ./*.c)
+
 c : 
 	lean -c $(CFILE1) $(LEANFILE1)
 	lean -c $(CFILE2) $(LEANFILE2)
@@ -17,7 +19,8 @@ c :
 
 leancMake.o :
 	rm -f leancMake.o
-	$(CC) -o $@  lake-packages/cryptolib4/build/ir/Cryptolib4/ElTest2.c $(CFILE1) $(CFILE2) $(CFILE3) $(CFLAGS)
+	$(CC) -o $@  lake-packages/cryptolib4/build/ir/Cryptolib4/ElTest2.c lake-packages/cryptolib4/build/ir/Cryptolib4/ElTest.c build/ir/SCL.c build/ir/Main.c $(CFLAGS)
+#	$(CC) -o $@  lake-packages/cryptolib4/build/ir/Cryptolib4/ElTest2.c $(CFILE1) $(CFILE2) $(CFILE3) $(CFLAGS)
 
 clean : 
 	rm -f *.c
