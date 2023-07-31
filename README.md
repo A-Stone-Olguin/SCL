@@ -32,3 +32,14 @@ To build the dependencies of Lean, run the following commands
 - Run `lake build` in the terminal
 
 - Restart your instance of your IDE (VSCode, Emacs...)
+
+## Updating LEAN_PATH
+In order for the C code to compile correctly, you must update your `LEAN_PATH` with each library's dependencies. This can be done manually by putting in your terminal:
+```bash
+export LEAN_PATH="PATH/TO/build/lib/:$LEAN_PATH"
+```
+
+This can be tedious, instead running the bash script :`LEANPATHSetup.sh` will automatically update your `LEAN_PATH`.
+
+To run the bash script do: `source LEANPATHSetup.sh` in the terminal. Verify your `LEAN_PATH` is updated by running `echo $LEAN_PATH | tr ":" "\n"` to see seven dependencies ending in `/build/lib/`
+
