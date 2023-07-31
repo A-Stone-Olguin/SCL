@@ -13,10 +13,11 @@ c :
 	lean -c $(CFILE1) $(LEANFILE1)
 	lean -c $(CFILE2) $(LEANFILE2)
 	lean -c $(CFILE3) $(LEANFILE3)
+	perl -pi -e 's/lake_x2dpackages_cryptolib4_//g' $(CFILE1)
 
 leancMake.o :
 	rm -f leancMake.o
-	$(CC) -o $@ $(CFILE1) $(CFILE2) $(CFILE3) $(CFLAGS)
+	$(CC) -o $@  lake-packages/cryptolib4/build/ir/Cryptolib4/ElTest2.c $(CFILE1) $(CFILE2) $(CFILE3) $(CFLAGS)
 
 clean : 
 	rm -f *.c
