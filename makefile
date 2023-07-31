@@ -1,19 +1,22 @@
 CC = leanc
 CFLAGS = -I /usr/include -I /usr/include/x86_64-linux-gnu/ 
 
-LEANFILE1 = SCL.lean
-LEANFILE2 = Main.lean
+LEANFILE1 = lake-packages/cryptolib4/Cryptolib4/ElTest.lean
+LEANFILE2 = SCL.lean
+LEANFILE3 = Main.lean
 
-CFILE1 = scl.c
-CFILE2 = main.c
+CFILE1 = eltest.c
+CFILE2 = scl.c
+CFILE3 = main.c
 
 c : 
 	lean -c $(CFILE1) $(LEANFILE1)
 	lean -c $(CFILE2) $(LEANFILE2)
+	lean -c $(CFILE3) $(LEANFILE3)
 
 leancMake.o :
 	rm -f leancMake.o
-	$(CC) -o $@ $(CFILE1) $(CFILE2) $(CFLAGS)
+	$(CC) -o $@ $(CFILE1) $(CFILE2) $(CFILE3) $(CFLAGS)
 
 clean : 
 	rm -f *.c
