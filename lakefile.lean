@@ -6,7 +6,7 @@ require cryptolib4 from git
 
 package «sCL» {
   -- add package configuration options here
-  moreLeancArgs := #["-I /usr/include", "-I /usr/include/x86_64-linux-gnu/"]
+  moreLeancArgs := #["-I", "/usr/include", "-I", "/usr/include/x86_64-linux-gnu/"]
 }
 
 lean_lib «SCL» {
