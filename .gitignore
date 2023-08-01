@@ -1,2 +1,14 @@
 /build
 /lake-packages/*
+*.bin
+*.eep
+*.elf
+*.hex
+*.lss
+*.lst
+*.o
+*.d
+*.map
+*.sym
+**/.dep
+**/objdir**
