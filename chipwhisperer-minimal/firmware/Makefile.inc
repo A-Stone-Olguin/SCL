@@ -24,6 +24,8 @@
 # To rebuild project do "make clean" then "make all".
 #----------------------------------------------------------------------------
 
+CC=leanc
+
 ifeq ($(PLATFORM),)
   -include Makefile.platform
   ifeq ($(PLATFORM),)
@@ -329,8 +331,11 @@ ALL_CPPFLAGS = $(MCU_FLAGS) -I. -x c++ $(CPPFLAGS) $(GENDEPFLAGS)
 ALL_ASFLAGS = $(MCU_FLAGS) -I. -x assembler-with-cpp $(ASFLAGS)
 
 
+LAKE_DIR = ../../../.
+
 # Default target.
 all: 
+	cd $(LAKE_DIR); lake build
 	@$(MAKE) --no-print-directory -O clean_objs .dep 
 	@$(MAKE) --no-print-directory -O begin gccversion build 
 	@$(MAKE) --no-print-directory -O sizeafter fastnote end
@@ -489,7 +494,9 @@ $(OBJDIR)/%.o : %.c
 	@$(ECHO_BLANK)
 	@echo Compiling:
 	@echo -en $(COMPMSG)
-	@$(CC) -c $(ALL_CFLAGS) $< -o $@
+#	cd $(LAKE_DIR); $(CC) -c -o ./build/ir/Main.o ./build/ir/Main.c -O3 -DNDEBUG -I /usr/include -I /usr/include/x86_64-linux-gnu/
+	@$(CC) -c $(ALL_CFLAGS) $< -o $@ -O -DNDEBUG -I /usr/include -I /usr/include/x86_64-linux-gnu/
+#	@$(CC) -c $(ALL_CFLAGS) $< -o $@
 	@echo -e $(DONEMSG)
 
 

@@ -21,7 +21,6 @@
 #include <stdlib.h>
 #include <limits.h>
 #include "stm32f0/stm32f0xx_hal_gpio.h"
-#include <lean/lean.h>
 
 #include "simpleserial.h"
 

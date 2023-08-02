@@ -43,3 +43,13 @@ This can be tedious, instead running the bash script :`LEANPATHSetup.sh` will au
 
 To run the bash script do: `source LEANPATHSetup.sh` in the terminal. Verify your `LEAN_PATH` is updated by running `echo $LEAN_PATH | tr ":" "\n"` to see seven dependencies ending in `/build/lib/`
 
+
+`leanc -c -o ./build/ir/Main.o ./build/ir/Main.c -O3 -DNDEBUG -I /usr/include -I /usr/include/x86_64-linux-gnu/`
+
+`leanc -o ./sCL ./build/ir/Main.o ./build/ir/SCL.o ./lake-packages/cryptolib4/build/ir/Cryptolib4/ElTest2.o ./lake-packages/cryptolib4/build/ir/Cryptolib4/ElTest.o`
+
+# Command progress: 
+
+```bash
+leanc -c -o ./chipwhisperer-minimal/firmware/simpleserial-base/simpleserial-base.o ./chipwhisperer-minimal/firmware/simpleserial-base/simpleserial-base.c -O3 -DNDEBUG -I /usr/include -I /usr/include/x86_64-linux-gnu/ -I /home/beth-c132/SCL/chipwhisperer-minimal/firmware/hal -I /home/beth-c132/SCL/chipwhisperer-minimal/firmware/hal/stm32f0/CMSIS/device -I /home/beth-c132/SCL/chipwhisperer-minimal/firmware/simpleserial
+```
