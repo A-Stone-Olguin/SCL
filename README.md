@@ -53,3 +53,10 @@ To run the bash script do: `source LEANPATHSetup.sh` in the terminal. Verify you
 ```bash
 leanc -c -o ./chipwhisperer-minimal/firmware/simpleserial-base/simpleserial-base.o ./chipwhisperer-minimal/firmware/simpleserial-base/simpleserial-base.c -O3 -DNDEBUG -I /usr/include -I /usr/include/x86_64-linux-gnu/ -I /home/beth-c132/SCL/chipwhisperer-minimal/firmware/hal -I /home/beth-c132/SCL/chipwhisperer-minimal/firmware/hal/stm32f0/CMSIS/device -I /home/beth-c132/SCL/chipwhisperer-minimal/firmware/simpleserial
 ```
+
+## Extra progress: Run this to compile and use test.c:
+
+* `lake build` -- This will generate some errors about missing main. This is okay (for now)
+* `leanc -c -o ./build/ir/test.o ./build/ir/test.c -I /usr/include -I /usr/include/x86_64-linux-gnu/` -- This builds the output file
+* `leanc -o ./sCL ./build/ir/test.o ./build/ir/Main.o ./build/ir/SCL.o ./lake-packages/cryptolib4/build/ir/Cryptolib4/ElTest2.o ./lake-packages/cryptolib4/build/ir/Cryptolib4/ElTest.o` -- This builds the executable, `sCL`
+* Run `./sCL` to finish 

@@ -331,11 +331,22 @@ ALL_CPPFLAGS = $(MCU_FLAGS) -I. -x c++ $(CPPFLAGS) $(GENDEPFLAGS)
 ALL_ASFLAGS = $(MCU_FLAGS) -I. -x assembler-with-cpp $(ASFLAGS)
 
 
-LAKE_DIR = ../../../.
+LAKE_DIR = ../../../
+#CC=leanc
+#LAKEFLAGS = -fstack-clash-protection -fPIC -fvisibility=hidden -isystem
+#LAKEFLAGS += -O3 -DNDEBUG -L /home/beth-c132/.elan/toolchains/leanprover--lean4---nightly-2023-06-20/lib/glibc /home/beth-c132/.elan/toolchains/leanprover--lean4---nightly-2023-06-20/lib/glibc/libc_nonshared.a
+#LAKEFLAGS += -Wl,--as-needed -static-libgcc -Wl,-Bstatic -lgmp -lunwind -Wl,-Bdynamic -Wl,--no-as-needed
+#LAKEFLAGS += -fuse-ld=lld -L /home/beth-c132/.elan/toolchains/leanprover--lean4---nightly-2023-06-20/lib/lean -Wl,--start-group -lleancpp -lLean -Wl,--end-group
+#LAKEFLAGS += -Wl,--start-group -lInit -lleanrt -Wl,--end-group -Wl,-Bstatic -lc++ -lc++abi -Wl,-Bdynamic -Wl,--as-needed -lgmp -Wl,--no-as-needed -lm -ldl -Wno-unused-command-line-argument
+#LAKEFLAGS = $(LAKE_DIR)build/ir/Main.o $(LAKE_DIR)build/ir/SCL.o $(LAKE_DIR)lake-packages/cryptolib4/build/ir/Cryptolib4/ElTest2.o $(LAKE_DIR)lake-packages/cryptolib4/build/ir/Cryptolib4/ElTest.o
+#LAKEFLAGS += -I.././simpleserial/ -I.././hal -I.././hal/stm32f0 -I.././hal/stm32f0/CMSIS -I.././hal/stm32f0/CMSIS/core -I.././hal/stm32f0/CMSIS/device -I.././hal/stm32f0/Legacy 
+#LAKEFLAGS = -I /home/beth-c132/.elan/toolchains/leanprover--lean4---nightly-2023-06-20/include -fstack-clash-protection -fPIC -fvisibility=hidden -nostdinc -isystem -L /home/beth-c132/.elan/toolchains/leanprover--lean4---nightly-2023-06-20/lib -L /home/beth-c132/.elan/toolchains/leanprover--lean4---nightly-2023-06-20/lib/glibc /home/beth-c132/.elan/toolchains/leanprover--lean4---nightly-2023-06-20/lib/glibc/libc_nonshared.a -Wl,--as-needed -static-libgcc -Wl,-Bstatic -lgmp -lunwind -Wl,-Bdynamic -Wl,--no-as-needed -fuse-ld=lld -L /home/beth-c132/.elan/toolchains/leanprover--lean4---nightly-2023-06-20/lib/lean -Wl,--start-group -lleancpp -lLean -Wl,--end-group -Wl,--start-group -lInit -lleanrt -Wl,--end-group -Wl,-Bstatic -lc++ -lc++abi -Wl,-Bdynamic -Wl,--as-needed -lgmp -Wl,--no-as-needed -lm -ldl -Wno-unused-command-line-argument
+LAKEFLAGS = -fPIC -fvisibility=hidden -isystem -L /home/beth-c132/.elan/toolchains/leanprover--lean4---nightly-2023-06-20/lib -L /home/beth-c132/.elan/toolchains/leanprover--lean4---nightly-2023-06-20/lib/glibc /home/beth-c132/.elan/toolchains/leanprover--lean4---nightly-2023-06-20/lib/glibc/libc_nonshared.a -Wl,--as-needed -static-libgcc -Wl,-Bstatic -lgmp -lunwind -Wl,-Bdynamic -Wl,--no-as-needed -fuse-ld=lld -L /home/beth-c132/.elan/toolchains/leanprover--lean4---nightly-2023-06-20/lib/lean -Wl,--start-group -lleancpp -lLean -Wl,--end-group -Wl,--start-group -lInit -lleanrt -Wl,--end-group -Wl,-Bstatic -lc++ -lc++abi -Wl,-Bdynamic -Wl,--as-needed -lgmp -Wl,--no-as-needed -lm -ldl -Wno-unused-command-line-argument
+
 
 # Default target.
 all: 
-	cd $(LAKE_DIR); lake build
+#	cd $(LAKE_DIR); lake build
 	@$(MAKE) --no-print-directory -O clean_objs .dep 
 	@$(MAKE) --no-print-directory -O begin gccversion build 
 	@$(MAKE) --no-print-directory -O sizeafter fastnote end
@@ -494,9 +505,12 @@ $(OBJDIR)/%.o : %.c
 	@$(ECHO_BLANK)
 	@echo Compiling:
 	@echo -en $(COMPMSG)
-#	cd $(LAKE_DIR); $(CC) -c -o ./build/ir/Main.o ./build/ir/Main.c -O3 -DNDEBUG -I /usr/include -I /usr/include/x86_64-linux-gnu/
-	@$(CC) -c $(ALL_CFLAGS) $< -o $@ -O -DNDEBUG -I /usr/include -I /usr/include/x86_64-linux-gnu/
-#	@$(CC) -c $(ALL_CFLAGS) $< -o $@
+#	cd $(LAKE_DIR); leanc -c -o ./build/ir/Main.o ./build/ir/Main.c -O3 -DNDEBUG -I /usr/include -I /usr/include/x86_64-linux-gnu/
+	$(CC) -c -o $@ $(ALL_CFLAGS) $<  -O -DNDEBUG $(LAKEFLAGS) -I /usr/include -I /usr/include/x86_64-linux-gnu/ -I /home/beth-c132/.elan/toolchains/leanprover--lean4---nightly-2023-06-20/include
+#	@$(CC) -c $(ALL_CFLAGS) $< -o $@ -I /home/beth-c132/.elan/toolchains/leanprover--lean4---nightly-2023-06-20/include
+#	leanc -c $< -o $@  $(LAKEFLAGS) -I /usr/include -I /usr/include/x86_64-linux-gnu/ -I /home/beth-c132/.elan/toolchains/leanprover--lean4---nightly-2023-06-20/include
+#	leanc -o $@ $(LAKEFLAGS) -I /home/beth-c132/.elan/toolchains/leanprover--lean4---nightly-2023-06-20/include
+#	$(CC) -c $(ALL_CFLAGS) $< -o $@ -O3 -DNDEBUG -I /home/beth-c132/.elan/toolchains/leanprover--lean4---nightly-2023-06-20/include
 	@echo -e $(DONEMSG)
 
 

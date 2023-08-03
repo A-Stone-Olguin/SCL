@@ -44,6 +44,9 @@ volatile long int A = x * scale_val;
 volatile long int B = y * scale_val;
 volatile long int C = z * scale_val;
 
+extern lean_object *_lean_main(lean_object *);
+extern lean_object *initialize_Main(uint8_t builtin, lean_object *w);
+void lean_initialize_runtime_module();
 
 
 const int DELAY = 300;
@@ -103,18 +106,48 @@ uint8_t get_pt(uint8_t* pt, uint8_t len)
 
     trigger_high();
 
-
-    for(uint16_t i = 0; i < 3; i++ ) {
-        green_light(C);
-        short_nops();
-        yellow_light(B);
-        short_nops();
-        red_light(A);
-        short_nops();
-        short_nops();
+    lean_object *in;
+    lean_object *res;
+    lean_initialize_runtime_module();
+    lean_set_panic_messages(false);
+    res = initialize_Main(1 /* builtin */, lean_io_mk_world());
+    lean_set_panic_messages(true);
+    lean_io_mark_end_initialization();
+    if (lean_io_result_is_ok(res))
+    {
+      lean_dec_ref(res);
+      lean_init_task_manager();
+      res = _lean_main(lean_io_mk_world());
     }
-    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_2, RESET);
-    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, RESET);
+    
+    printf("Hello after the message\n");
+    lean_finalize_task_manager();
+    if (lean_io_result_is_ok(res))
+    {
+      int ret = 0;
+      lean_dec_ref(res);
+      return ret;
+    }
+    else
+    {
+      lean_io_result_show_error(res);
+      lean_dec_ref(res);
+      return 1;
+    }
+
+
+
+    // for(uint16_t i = 0; i < 3; i++ ) {
+    //     green_light(C);
+    //     short_nops();
+    //     yellow_light(B);
+    //     short_nops();
+    //     red_light(A);
+    //     short_nops();
+    //     short_nops();
+    // }
+    // HAL_GPIO_WritePin(GPIOA, GPIO_PIN_2, RESET);
+    // HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, RESET);
 
 	trigger_low();
 	/* End user-specific code here. *
