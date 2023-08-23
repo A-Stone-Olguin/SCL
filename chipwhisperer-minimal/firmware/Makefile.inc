@@ -239,7 +239,11 @@ MATH_LIB = -lm
 #     Each directory must be seperated by a space.
 #     Use forward slashes for directory separators.
 #     For a directory that has spaces, enclose it in quotes.
-EXTRALIBDIRS =
+EXTRALIBDIRS = /home/beth-c132/.elan/toolchains/leanprover--lean4---nightly-2023-06-20/lib 
+EXTRALIBDIRS += /home/beth-c132/.elan/toolchains/leanprover--lean4---nightly-2023-06-20/lib/glibc  
+EXTRALIBDIRS += /home/beth-c132/.elan/toolchains/leanprover--lean4---nightly-2023-06-20/lib/lean
+EXTRALIBDIRS += /usr/lib/arm-none-eabi/newlib
+
 
 
 
@@ -267,6 +271,7 @@ LDFLAGS += $(patsubst %,-L%,$(EXTRALIBDIRS))
 LDFLAGS += $(MATH_LIB)
 LDFLAGS += $(PRINTF_LIB) $(SCANF_LIB)
 #LDFLAGS += -T linker_script.x
+
 
 
 
@@ -333,15 +338,32 @@ ALL_ASFLAGS = $(MCU_FLAGS) -I. -x assembler-with-cpp $(ASFLAGS)
 
 LAKE_DIR = ../../../
 #CC=leanc
-#LAKEFLAGS = -fstack-clash-protection -fPIC -fvisibility=hidden -isystem
-#LAKEFLAGS += -O3 -DNDEBUG -L /home/beth-c132/.elan/toolchains/leanprover--lean4---nightly-2023-06-20/lib/glibc /home/beth-c132/.elan/toolchains/leanprover--lean4---nightly-2023-06-20/lib/glibc/libc_nonshared.a
-#LAKEFLAGS += -Wl,--as-needed -static-libgcc -Wl,-Bstatic -lgmp -lunwind -Wl,-Bdynamic -Wl,--no-as-needed
-#LAKEFLAGS += -fuse-ld=lld -L /home/beth-c132/.elan/toolchains/leanprover--lean4---nightly-2023-06-20/lib/lean -Wl,--start-group -lleancpp -lLean -Wl,--end-group
-#LAKEFLAGS += -Wl,--start-group -lInit -lleanrt -Wl,--end-group -Wl,-Bstatic -lc++ -lc++abi -Wl,-Bdynamic -Wl,--as-needed -lgmp -Wl,--no-as-needed -lm -ldl -Wno-unused-command-line-argument
 #LAKEFLAGS = $(LAKE_DIR)build/ir/Main.o $(LAKE_DIR)build/ir/SCL.o $(LAKE_DIR)lake-packages/cryptolib4/build/ir/Cryptolib4/ElTest2.o $(LAKE_DIR)lake-packages/cryptolib4/build/ir/Cryptolib4/ElTest.o
 #LAKEFLAGS += -I.././simpleserial/ -I.././hal -I.././hal/stm32f0 -I.././hal/stm32f0/CMSIS -I.././hal/stm32f0/CMSIS/core -I.././hal/stm32f0/CMSIS/device -I.././hal/stm32f0/Legacy 
 #LAKEFLAGS = -I /home/beth-c132/.elan/toolchains/leanprover--lean4---nightly-2023-06-20/include -fstack-clash-protection -fPIC -fvisibility=hidden -nostdinc -isystem -L /home/beth-c132/.elan/toolchains/leanprover--lean4---nightly-2023-06-20/lib -L /home/beth-c132/.elan/toolchains/leanprover--lean4---nightly-2023-06-20/lib/glibc /home/beth-c132/.elan/toolchains/leanprover--lean4---nightly-2023-06-20/lib/glibc/libc_nonshared.a -Wl,--as-needed -static-libgcc -Wl,-Bstatic -lgmp -lunwind -Wl,-Bdynamic -Wl,--no-as-needed -fuse-ld=lld -L /home/beth-c132/.elan/toolchains/leanprover--lean4---nightly-2023-06-20/lib/lean -Wl,--start-group -lleancpp -lLean -Wl,--end-group -Wl,--start-group -lInit -lleanrt -Wl,--end-group -Wl,-Bstatic -lc++ -lc++abi -Wl,-Bdynamic -Wl,--as-needed -lgmp -Wl,--no-as-needed -lm -ldl -Wno-unused-command-line-argument
-LAKEFLAGS = -fPIC -fvisibility=hidden -isystem -L /home/beth-c132/.elan/toolchains/leanprover--lean4---nightly-2023-06-20/lib -L /home/beth-c132/.elan/toolchains/leanprover--lean4---nightly-2023-06-20/lib/glibc /home/beth-c132/.elan/toolchains/leanprover--lean4---nightly-2023-06-20/lib/glibc/libc_nonshared.a -Wl,--as-needed -static-libgcc -Wl,-Bstatic -lgmp -lunwind -Wl,-Bdynamic -Wl,--no-as-needed -fuse-ld=lld -L /home/beth-c132/.elan/toolchains/leanprover--lean4---nightly-2023-06-20/lib/lean -Wl,--start-group -lleancpp -lLean -Wl,--end-group -Wl,--start-group -lInit -lleanrt -Wl,--end-group -Wl,-Bstatic -lc++ -lc++abi -Wl,-Bdynamic -Wl,--as-needed -lgmp -Wl,--no-as-needed -lm -ldl -Wno-unused-command-line-argument
+#LAKEFLAGS = -fPIC -fvisibility=hidden -isystem -L/home/beth-c132/.elan/toolchains/leanprover--lean4---nightly-2023-06-20/lib -lunwind -L /home/beth-c132/.elan/toolchains/leanprover--lean4---nightly-2023-06-20/lib/glibc -l /home/beth-c132/.elan/toolchains/leanprover--lean4---nightly-2023-06-20/lib/glibc/libc_nonshared.a -Wl,--as-needed -static-libgcc -Wl,-Bstatic -lgmp -lunwind -Wl,-Bdynamic -Wl,--no-as-needed -fuse-ld=lld -L /home/beth-c132/.elan/toolchains/leanprover--lean4---nightly-2023-06-20/lib/lean -Wl,--start-group -lleancpp -lLean -Wl,--end-group -Wl,--start-group -lInit -lleanrt -Wl,--end-group -Wl,-Bstatic -lc++ -lc++abi -Wl,-Bdynamic -Wl,--as-needed -lgmp -Wl,--no-as-needed -lm -ldl -Wno-unused-command-line-argument
+
+#LAKEFLAGS = -fPIC -fvisibility=hidden -isystem -L/home/beth-c132/.elan/toolchains/leanprover--lean4---nightly-2023-06-20/lib -lunwind -lc++ -lc++abi -lgmp -L/home/beth-c132/.elan/toolchains/leanprover--lean4---nightly-2023-06-20/lib/glibc -l/home/beth-c132/.elan/toolchains/leanprover--lean4---nightly-2023-06-20/lib/glibc/libc_nonshared.a -L/home/beth-c132/.elan/toolchains/leanprover--lean4---nightly-2023-06-20/lib/lean -lInit -lLean -lleancpp -lleanrt -Wl,--as-needed -static-libgcc -Wl,-Bstatic -Wl,-Bdynamic -Wl,--no-as-needed -fuse-ld=lld 
+LAKEFLAGS = -fPIC -fvisibility=hidden -isystem -L/home/beth-c132/.elan/toolchains/leanprover--lean4---nightly-2023-06-20/lib -L/home/beth-c132/.elan/toolchains/leanprover--lean4---nightly-2023-06-20/lib/glibc -L/home/beth-c132/.elan/toolchains/leanprover--lean4---nightly-2023-06-20/lib/lean 
+LAKEFLAGS += -Wl,as-needed -static-libgcc -Wl,-Bstatic -lgmp -lunwind -Wl,-Bdynamic -Wl,--no-as-needed -fuse-ld=lld -Wl,--start-group -lleancpp -lLean -Wl,--end-group -Wl,--start-group -lInit -lleanrt -Wl,--end-group -Wl,-Bstatic -lc++ -lc++abi -Wl,-Bdynamic -Wl,--as-needed -lgmp -Wl,--no-as-needed -lm -ldl -lleanshared -Wno-unused-command-line-argument
+#LAKEFLAGS += -pie -Wl,-z,relro,--hash-style=gnu,--eh-frame-hdr,-lpthread
+
+## Added to above with library dirs
+#-L/home/beth-c132/.elan/toolchains/leanprover--lean4---nightly-2023-06-20/lib -L/home/beth-c132/.elan/toolchains/leanprover--lean4---nightly-2023-06-20/lib/glibc -L/home/beth-c132/.elan/toolchains/leanprover--lean4---nightly-2023-06-20/lib/lean 
+
+
+#LINKLAKEFLAGS = -fPIC -fvisibility=hidden -isystem
+#LINKLAKEFLAGS += -Wl,--as-needed -static-libgcc -Wl,-Bstatic -lgmp -lunwind -Wl,-Bdynamic -Wl,--no-as-needed
+#LINKLAKEFLAGS += -Wl,--start-group -lleancpp -lLean -Wl,--end-group -Wl,--start-group -lInit -lleanrt -Wl,--end-group
+#LINKLAKEFLAGS += -Wl,-Bstatic -lc++ -lc++abi -Wl,-Bdynamic -Wl,--as-needed -lgmp -Wl,--no-as-needed -lm -ldl 
+#LINKLAKEFLAGS += -lleanshared -lpthread -Wno-unused-command-line-argument
+
+LINKLAKEFLAGS = -fPIC -fvisibility=hidden
+LINKLAKEFLAGS += -Wl,--as-needed -static-libgcc -Wl,-Bstatic -lgmp -lunwind -Wl,-Bdynamic -Wl,--no-as-needed
+LINKLAKEFLAGS += -Wl,--start-group -lleancpp -lLean -Wl,--end-group -Wl,--start-group -lleanIniteabi -lleanrteabi -Wl,--end-group
+LINKLAKEFLAGS += -Wl,-Bdynamic -lstdc++_nano -Wl,--as-needed -Wl,--no-as-needed  
+LINKLAKEFLAGS += -Wno-unused-command-line-argument
+
 
 
 # Default target.
@@ -492,12 +514,20 @@ endif
 # Link: create ELF output file from object files.
 .SECONDARY : $(TARGET-PLAT).elf
 .PRECIOUS : $(OBJ)
-%.elf: $(OBJ)
+
+%.elf: $(OBJ) 
 	@$(ECHO_BLANK)
 	@echo LINKING:
 	@echo -en $(LINKMSG)
-	@$(CC) $(ALL_CFLAGS) $^ --output $@ $(LDFLAGS)
+	$(CC) -dumpmachine
+#	$(CC)  $(ALL_CFLAGS) $^ --output $@ $(LDFLAGS) 
+#	$(CC)  $(ALL_CFLAGS) $^ --output $@ $(LDFLAGS) ../../../build/ir/Main.o ../../../build/ir/SCL.o ../../../lake-packages/cryptolib4/build/ir/Cryptolib4/ElTest2.o ../../../lake-packages/cryptolib4/build/ir/Cryptolib4/ElTest.o
+#	$(CC)  $(ALL_CFLAGS) $^ --output $@ $(LDFLAGS) ../../../lake-packages/cryptolib4/build/ir/Cryptolib4/ElTest2.o ../../../lake-packages/cryptolib4/build/ir/Cryptolib4/ElTest.o
+
+
+	$(CC) $(ALL_CFLAGS) $^ --output $@  $(LDFLAGS) $(LINKLAKEFLAGS) ../../../build/ir/Maintest.o ../../../build/ir/SCLtest.o ../../../lake-packages/cryptolib4/build/ir/Cryptolib4/ElTest2test.o ../../../lake-packages/cryptolib4/build/ir/Cryptolib4/ElTesttest.o
 	@echo -e $(DONEMSG)
+
 
 
 # Compile: create object files from C source files.
@@ -505,8 +535,21 @@ $(OBJDIR)/%.o : %.c
 	@$(ECHO_BLANK)
 	@echo Compiling:
 	@echo -en $(COMPMSG)
+#	cd $(LAKE_DIR); $(CC) -c -o ./build/ir/test.o ./build/ir/test.c -I /usr/include -I /usr/include/x86_64-linux-gnu/ -I /home/beth-c132/.elan/toolchains/leanprover--lean4---nightly-2023-06-20/include
 #	cd $(LAKE_DIR); leanc -c -o ./build/ir/Main.o ./build/ir/Main.c -O3 -DNDEBUG -I /usr/include -I /usr/include/x86_64-linux-gnu/
-	$(CC) -c -o $@ $(ALL_CFLAGS) $<  -O -DNDEBUG $(LAKEFLAGS) -I /usr/include -I /usr/include/x86_64-linux-gnu/ -I /home/beth-c132/.elan/toolchains/leanprover--lean4---nightly-2023-06-20/include
+#	$(CC) -c -o $@ $(ALL_CFLAGS) $<  -O -DNDEBUG $(LAKEFLAGS) -I /usr/include -I /usr/include/x86_64-linux-gnu/ -I /home/beth-c132/.elan/toolchains/leanprover--lean4---nightly-2023-06-20/include
+
+	$(CC) -c -o $@ $(ALL_CFLAGS) $< -O -DNDEBUG  -I /usr/include -I /usr/include/x86_64-linux-gnu/ -I /home/beth-c132/.elan/toolchains/leanprover--lean4---nightly-2023-06-20/include
+	$(CC) -c -o ../../../lake-packages/cryptolib4/build/ir/Cryptolib4/ElTest2test.o $(ALL_CFLAGS) $(LAKEFLAGS) -DNDEBUG ../../../lake-packages/cryptolib4/build/ir/Cryptolib4/ElTest2.c -I /home/beth-c132/.elan/toolchains/leanprover--lean4---nightly-2023-06-20/include/
+	$(CC) -c -o ../../../lake-packages/cryptolib4/build/ir/Cryptolib4/ElTesttest.o $(ALL_CFLAGS) $(LAKEFLAGS) -DNDEBUG ../../../lake-packages/cryptolib4/build/ir/Cryptolib4/ElTest.c -I /home/beth-c132/.elan/toolchains/leanprover--lean4---nightly-2023-06-20/include/
+	$(CC) -c -o ../../../build/ir/SCLtest.o $(ALL_CFLAGS) $(LAKEFLAGS) -DNDEBUG ../../../build/ir/SCL.c -I /home/beth-c132/.elan/toolchains/leanprover--lean4---nightly-2023-06-20/include/
+	$(CC) -c -o ../../../build/ir/Maintest.o $(ALL_CFLAGS) $(LAKEFLAGS) -DNDEBUG ../../../build/ir/Main.c -I /home/beth-c132/.elan/toolchains/leanprover--lean4---nightly-2023-06-20/include/
+
+#	arm-none-eabi-g++ -c -o /home/beth-c132/lean4/src/runtime/init_module.o $(ALL_CXXFLAGS) $(LAKEFLAGS) -DNDEBUG /home/beth-c132/lean4/src/runtime/init_module.cpp -I /home/beth-c132/.elan/toolchains/leanprover--lean4---nightly-2023-06-20/include/ -I /home/beth-c132/lean4/src
+#	echo g++ succeeded!
+
+#	leanc -c -o $@ -mcpu=cortex-m0 -I. -DNO_EXTRA_OPT -mthumb -mfloat-abi=soft -ffunction-sections -gdwarf-2 -DSS_VER=SS_VER_1_1 -DSTM32F030x6 -DSTM32F0 -DSTM32 -DDEBUG -DHAL_TYPE=HAL_stm32f0_nano -DPLATFORM=CWNANO -DF_CPU=7372800UL -DSS_VER_2_0=2 -DSS_VER_2_1=3 -DSS_VER_1_1=1 -DSS_VER_1_0=0 -Os -funsigned-char -fshort-enums -Wall -Wstrict-prototypes -I.././simpleserial/ -I.././hal -I.././hal/stm32f0 -I.././hal/stm32f0/CMSIS -I.././hal/stm32f0/CMSIS/core -I.././hal/stm32f0/CMSIS/device -I.././hal/stm32f0/Legacy -std=gnu99 -Wno-discarded-qualifiers -Wno-unused-function -Wno-unused-variable -Wno-strict-prototypes -Wno-missing-prototypes -Wno-pointer-sign -Wno-unused-value -Wno-implicit-function-declaration  -MMD -MP -MF .dep/simpleserial-base.o.d $< -I /usr/include
+
 #	@$(CC) -c $(ALL_CFLAGS) $< -o $@ -I /home/beth-c132/.elan/toolchains/leanprover--lean4---nightly-2023-06-20/include
 #	leanc -c $< -o $@  $(LAKEFLAGS) -I /usr/include -I /usr/include/x86_64-linux-gnu/ -I /home/beth-c132/.elan/toolchains/leanprover--lean4---nightly-2023-06-20/include
 #	leanc -o $@ $(LAKEFLAGS) -I /home/beth-c132/.elan/toolchains/leanprover--lean4---nightly-2023-06-20/include

@@ -22,8 +22,8 @@ int main(void)
         res = _lean_main(lean_io_mk_world());
     }
 
-    // printf("Hello after the message\n");
-    // printf("Hello again!\n");
+    printf("Hello after the message\n");
+    printf("Hello again!\n");
     lean_finalize_task_manager();
     if (lean_io_result_is_ok(res))
     {

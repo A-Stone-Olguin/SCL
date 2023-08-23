@@ -60,3 +60,13 @@ leanc -c -o ./chipwhisperer-minimal/firmware/simpleserial-base/simpleserial-base
 * `leanc -c -o ./build/ir/test.o ./build/ir/test.c -I /usr/include -I /usr/include/x86_64-linux-gnu/` -- This builds the output file
 * `leanc -o ./sCL ./build/ir/test.o ./build/ir/Main.o ./build/ir/SCL.o ./lake-packages/cryptolib4/build/ir/Cryptolib4/ElTest2.o ./lake-packages/cryptolib4/build/ir/Cryptolib4/ElTest.o` -- This builds the executable, `sCL`
 * Run `./sCL` to finish 
+
+# The end of the Road
+
+I tried playing with optimizing the compiler for arm-none-eabi-gcc to allow for lean4 to work on the embedded space. 
+The ROM and RAM will constantly overflow, and I think that is a result of the executable code being too large (or a segmentation fault).
+The lean4 runtime doesn't work in this instance, and it is a shame to have this end, but it was a good run.
+[This zulip chat link](https://leanprover.zulipchat.com/#narrow/stream/270676-lean4/topic/Side-Channel.20Analysis.20of.20Lean4) will show the lean communtity mentioning that getting the runtime to work would be a monumental task.
+I was able to get the archive `.a` file for the leanrt to be paired down minimally in  my other repository, lean4-eabi, but it did not yield significant results.
+
+The changes I've worked on in this branch will be pushed, although it will be messy with all of my attempts at getting this to work.
